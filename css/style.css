@@ -225,7 +225,7 @@ img {
 
 .story-pages {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   overflow: hidden;
   padding: 0 6px 0 2px;
 }
@@ -437,6 +437,35 @@ img {
   0%, 100% { transform: translateX(0); }
   25% { transform: translateX(-8px) rotate(-2deg); }
   75% { transform: translateX(8px) rotate(2deg); }
+}
+
+@media (min-width: 761px) and (max-width: 900px) {
+  .book-spread {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    max-height: none;
+    gap: clamp(18px, 4vw, 36px);
+    padding: clamp(24px, 4vw, 44px) clamp(18px, 4vw, 42px);
+    --spine-safe: clamp(30px, 5vw, 48px);
+    --outer-safe: clamp(18px, 3vw, 30px);
+  }
+
+  .paragraph-text {
+    font-size: clamp(1.55rem, 4vw, 2rem);
+    line-height: 1.25;
+  }
+
+  .choice-tray {
+    min-height: 104px;
+  }
+
+  .choice-tile {
+    min-width: 74px;
+    min-height: 48px;
+    font-size: clamp(1.08rem, 2.4vw, 1.35rem);
+    padding: 0 12px;
+  }
 }
 
 @media (max-width: 760px) {

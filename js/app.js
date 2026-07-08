@@ -7,6 +7,8 @@ const SENTENCE_PAUSE_MS = 300;
 const PARAGRAPH_PAUSE_MS = 500;
 const NEXT_AFTER_ANSWER_MS = 240;
 const ILLUSTRATION_FADE_MS = 220;
+const STORY_FIT_MIN_SCALE = 0.5;
+const STORY_FIT_MIN_FONT_PX = 14;
 const PREFERRED_FEMALE_VOICES = ['sunhi', 'yuna', '유나', 'sora', '소라', 'heami', 'google 한국'];
 const MALE_VOICE_NAMES = ['eddy', 'reed', 'rocko', 'grandpa', 'injoon', 'bongjin', 'hyunsu'];
 
@@ -329,6 +331,55 @@ function renderStory() {
   }
   row.appendChild(textEl);
   els.storyPages.appendChild(row);
+  scheduleStoryFit();
+}
+
+function storyTextFits(textEl) {
+  const storyRect = els.storyPages.getBoundingClientRect();
+  const textRect = textEl.getBoundingClientRect();
+  const fitPadding = 3;
+  const tolerance = 0.5;
+  return (
+    textRect.width <= storyRect.width - fitPadding &&
+    textRect.height <= storyRect.height - fitPadding &&
+    els.storyPages.scrollWidth <= els.storyPages.clientWidth + tolerance &&
+    els.storyPages.scrollHeight <= els.storyPages.clientHeight + tolerance
+  );
+}
+
+function fitStoryText() {
+  if (!els.readerScene.classList.contains('active')) return;
+  const textEl = els.storyPages.querySelector('.paragraph-text');
+  if (!textEl) return;
+
+  textEl.style.fontSize = '';
+  textEl.style.lineHeight = '';
+  const baseFontSize = parseFloat(getComputedStyle(textEl).fontSize);
+  if (!baseFontSize || storyTextFits(textEl)) return;
+
+  const minFontSize = Math.max(STORY_FIT_MIN_FONT_PX, baseFontSize * STORY_FIT_MIN_SCALE);
+  textEl.style.fontSize = `${minFontSize}px`;
+  if (!storyTextFits(textEl)) {
+    textEl.style.lineHeight = '1.16';
+    if (!storyTextFits(textEl)) return;
+  }
+
+  let low = minFontSize;
+  let high = baseFontSize;
+  for (let i = 0; i < 8; i += 1) {
+    const mid = (low + high) / 2;
+    textEl.style.fontSize = `${mid}px`;
+    if (storyTextFits(textEl)) {
+      low = mid;
+    } else {
+      high = mid;
+    }
+  }
+  textEl.style.fontSize = `${low}px`;
+}
+
+function scheduleStoryFit() {
+  window.requestAnimationFrame(fitStoryText);
 }
 
 function buildChoices(answer) {
@@ -357,6 +408,7 @@ function renderChoices() {
     attachTileEvents(tile);
     els.choiceTray.appendChild(tile);
   }
+  scheduleStoryFit();
 }
 
 function attachTileEvents(tile) {
@@ -702,6 +754,11 @@ function bindControls() {
     window.speechSynthesis.onvoiceschanged = () => {
       state.koVoice = pickKoreanVoice();
     };
+  }
+  window.addEventListener('resize', scheduleStoryFit);
+  window.visualViewport?.addEventListener('resize', scheduleStoryFit);
+  if (document.fonts?.ready) {
+    document.fonts.ready.then(scheduleStoryFit).catch(() => {});
   }
 }
 

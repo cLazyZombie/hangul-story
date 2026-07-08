@@ -14,6 +14,11 @@ def require(condition: bool, message: str) -> None:
 
 def validate_paths(book: dict) -> None:
     require((ROOT / book["cover"]).exists(), f"missing cover: {book['cover']}")
+    paragraph_images = [paragraph["image"] for paragraph in book["paragraphs"]]
+    require(
+        len(paragraph_images) == len(set(paragraph_images)),
+        f"{book['id']} has duplicate paragraph images",
+    )
     for paragraph in book["paragraphs"]:
         require((ROOT / paragraph["image"]).exists(), f"missing paragraph image: {paragraph['image']}")
 

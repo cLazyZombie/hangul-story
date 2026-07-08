@@ -277,11 +277,6 @@ function renderStory() {
   row.className = 'paragraph active';
   row.dataset.paragraphId = paragraph.id;
 
-  const thumb = document.createElement('img');
-  thumb.src = paragraph.image;
-  thumb.alt = '';
-  row.appendChild(thumb);
-
   const textEl = document.createElement('p');
   textEl.className = 'paragraph-text';
   const targets = state.targetsByParagraph.get(paragraph.id) || [];

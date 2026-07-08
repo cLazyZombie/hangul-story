@@ -6,5 +6,13 @@
     "cover": "images/bremen/cover.png",
     "path": "books/bremen.json",
     "targetWords": ["당나귀", "개", "고양이", "수탉"]
+  },
+  {
+    "id": "haejun-farm",
+    "title": "해준과 일곱 색깔 농장",
+    "subtitle": "요일마다 만난 따뜻한 동물 친구들",
+    "cover": "images/haejun-farm/09-friends.webp",
+    "path": "books/haejun-farm.json",
+    "targetWords": ["송아지", "닭", "병아리", "염소", "양", "말", "오리", "강아지"]
   }
 ]

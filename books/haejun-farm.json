@@ -1,0 +1,88 @@
+{
+  "id": "haejun-farm",
+  "title": "해준과 일곱 색깔 농장",
+  "subtitle": "요일마다 만난 따뜻한 동물 친구들",
+  "cover": "images/haejun-farm/09-friends.webp",
+  "targetWords": ["송아지", "닭", "병아리", "염소", "양", "말", "오리", "강아지"],
+  "distractorWords": ["돼지", "토끼", "거위", "칠면조", "개구리", "나비", "잠자리", "다람쥐", "사슴", "고슴도치", "햄스터", "라마"],
+  "paragraphs": [
+    {
+      "id": "arrival",
+      "image": "images/haejun-farm/01-arrival.webp",
+      "text": "도시에서 살던 해준은 방학을 맞아 할머니 농장에 놀러 왔어요. 농장은 초록 풀밭, 빨간 지붕, 노란 꽃, 파란 하늘로 반짝이고 있었지요.",
+      "quizWords": []
+    },
+    {
+      "id": "calf",
+      "image": "images/haejun-farm/02-calf.webp",
+      "text": "월요일 아침, 해준은 헛간 앞에서 송아지를 만났어요. 송아지는 커다란 눈을 깜빡이며 음매 하고 인사했어요. 해준은 송아지에게 부드러운 풀을 나누어 주었답니다.",
+      "quizWords": ["송아지"]
+    },
+    {
+      "id": "chicken",
+      "image": "images/haejun-farm/03-chicken.webp",
+      "text": "화요일에는 닭장이 시끌시끌했어요. 닭이 꼬꼬댁 노래를 부르자, 병아리들이 노란 공처럼 데굴데굴 따라다녔어요. 해준은 병아리들과 함께 작은 씨앗을 톡톡 뿌렸어요.",
+      "quizWords": ["닭", "병아리"]
+    },
+    {
+      "id": "goat",
+      "image": "images/haejun-farm/04-goat.webp",
+      "text": "수요일에는 언덕 위에서 염소가 폴짝 뛰어왔어요. 염소는 해준의 모자를 살짝 물고 장난을 쳤지요. 해준은 웃으며 염소와 함께 꽃길을 걸었어요.",
+      "quizWords": ["염소"]
+    },
+    {
+      "id": "sheep",
+      "image": "images/haejun-farm/05-sheep.webp",
+      "text": "목요일 오후, 하얀 양이 구름처럼 폭신폭신한 털을 흔들며 다가왔어요. 해준은 양의 등을 조심조심 쓰다듬었고, 양은 기분 좋게 메에 하고 대답했어요.",
+      "quizWords": ["양"]
+    },
+    {
+      "id": "horse",
+      "image": "images/haejun-farm/06-horse.webp",
+      "text": "금요일에는 갈색 말이 울타리 옆에서 기다리고 있었어요. 말은 해준을 태우지는 않았지만, 천천히 농장 길을 함께 걸어 주었어요. 해준은 말의 따뜻한 숨소리를 들으며 마음이 편안해졌어요.",
+      "quizWords": ["말"]
+    },
+    {
+      "id": "duck",
+      "image": "images/haejun-farm/07-duck.webp",
+      "text": "토요일 아침, 연못가에서는 오리가 물 위를 둥둥 떠다녔어요. 오리는 해준에게 물장구 치는 법을 알려 주었고, 해준은 신발을 벗고 발끝으로 찰방찰방 물을 튀겼어요.",
+      "quizWords": ["오리"]
+    },
+    {
+      "id": "puppy",
+      "image": "images/haejun-farm/08-puppy.webp",
+      "text": "일요일에는 강아지가 꼬리를 빙글빙글 흔들며 해준에게 달려왔어요. 강아지는 공을 물고 와서 같이 놀자 하는 얼굴을 했어요. 해준은 강아지와 풀밭을 뛰어다녔어요.",
+      "quizWords": ["강아지"]
+    },
+    {
+      "id": "friends",
+      "image": "images/haejun-farm/09-friends.webp",
+      "text": "어느새 해준에게는 송아지, 닭, 병아리, 염소, 양, 말, 오리, 강아지 친구가 생겼어요. 친구들은 날마다 다른 소리로 해준을 불렀고, 해준은 그 소리를 모두 기억하게 되었어요.",
+      "quizWords": ["송아지", "닭", "병아리", "염소", "양", "말", "오리", "강아지"]
+    },
+    {
+      "id": "swim-gather",
+      "image": "images/haejun-farm/10-swim-gather.webp",
+      "text": "떠나기 전날 오후, 해준과 동물 친구들은 연못가에 모두 모였어요. 오리는 앞에서 길을 알려 주고, 강아지는 첨벙 뛰어들고, 송아지와 말은 얕은 물가에서 발을 적셨어요.",
+      "quizWords": ["오리", "강아지", "송아지", "말"]
+    },
+    {
+      "id": "swim-party",
+      "image": "images/haejun-farm/11-swim-party.webp",
+      "text": "농장은 웃음소리와 물방울로 반짝였어요. 닭과 병아리는 물가에서 춤을 추고, 염소와 양은 꽃무늬 수건 옆에 앉아 해준을 바라보았어요. 모두 함께한 수영 놀이는 알록달록한 꿈 같았답니다.",
+      "quizWords": ["닭", "병아리", "염소", "양"]
+    },
+    {
+      "id": "goodbye",
+      "image": "images/haejun-farm/12-goodbye.webp",
+      "text": "다음 날 아침, 해준이 도시로 돌아갈 시간이 되었어요. 동물 친구들은 울타리 앞에 모여 조용히 해준을 바라보았어요. 해준도 마음이 조금 아쉬웠답니다.",
+      "quizWords": []
+    },
+    {
+      "id": "promise",
+      "image": "images/haejun-farm/13-promise.webp",
+      "text": "해준은 손을 흔들며 말했어요. 다음 방학에 꼭 다시 올게. 우리 또 만나자! 그러자 친구들은 저마다의 목소리로 따뜻하게 대답했답니다.",
+      "quizWords": []
+    }
+  ]
+}

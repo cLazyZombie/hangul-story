@@ -6,6 +6,7 @@ const MAX_CHOICES = 5;
 const SENTENCE_PAUSE_MS = 300;
 const PARAGRAPH_PAUSE_MS = 500;
 const NEXT_AFTER_ANSWER_MS = 240;
+const ILLUSTRATION_FADE_MS = 220;
 const PREFERRED_FEMALE_VOICES = ['sunhi', 'yuna', '유나', 'sora', '소라', 'heami', 'google 한국'];
 const MALE_VOICE_NAMES = ['eddy', 'reed', 'rocko', 'grandpa', 'injoon', 'bongjin', 'hyunsu'];
 
@@ -20,6 +21,7 @@ const state = {
   currentTarget: null,
   activeParagraphIndex: -1,
   readingToken: 0,
+  illustrationToken: 0,
   currentAudio: null,
   koVoice: null,
   ghost: null,
@@ -494,17 +496,37 @@ function updateIllustration(paragraphIndex, immediate = false) {
   if (!paragraph) return;
   state.activeParagraphIndex = paragraphIndex;
   renderStory();
-  if (immediate || !els.mainIllustration.src) {
+  const currentSrc = els.mainIllustration.getAttribute('src');
+  const token = state.illustrationToken + 1;
+  state.illustrationToken = token;
+  if (immediate || !currentSrc) {
+    els.illustrationFrame.classList.remove('fading');
     els.mainIllustration.src = paragraph.image;
     els.mainIllustration.alt = `${state.book.title} 삽화`;
     return;
   }
-  els.illustrationFrame.classList.add('fading');
-  window.setTimeout(() => {
-    els.mainIllustration.src = paragraph.image;
-    els.mainIllustration.alt = `${state.book.title} 삽화`;
+  if (currentSrc === paragraph.image) {
     els.illustrationFrame.classList.remove('fading');
-  }, 180);
+    return;
+  }
+
+  const preload = new Image();
+  preload.onload = preload.onerror = () => {
+    if (state.illustrationToken !== token) return;
+    els.illustrationFrame.classList.add('fading');
+    window.setTimeout(() => {
+      if (state.illustrationToken !== token) return;
+      els.mainIllustration.src = paragraph.image;
+      els.mainIllustration.alt = `${state.book.title} 삽화`;
+      window.requestAnimationFrame(() => {
+        if (state.illustrationToken !== token) return;
+        window.requestAnimationFrame(() => {
+          if (state.illustrationToken === token) els.illustrationFrame.classList.remove('fading');
+        });
+      });
+    }, ILLUSTRATION_FADE_MS);
+  };
+  preload.src = paragraph.image;
 }
 
 async function playFrom(index) {

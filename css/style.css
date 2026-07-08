@@ -215,18 +215,19 @@ img {
 }
 
 .story-pages {
-  overflow-y: auto;
-  overflow-x: hidden;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
   padding: 4px 6px 4px 2px;
-  scrollbar-width: thin;
 }
 
 .paragraph {
+  width: 100%;
   display: grid;
   grid-template-columns: clamp(48px, 8vw, 74px) minmax(0, 1fr);
   gap: 12px;
   align-items: start;
-  margin: 0 0 12px;
+  margin: 0;
   padding: 10px;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.3);
@@ -235,7 +236,6 @@ img {
 
 .paragraph.active {
   background: rgba(255, 255, 255, 0.68);
-  transform: translateX(3px);
 }
 
 .paragraph img {

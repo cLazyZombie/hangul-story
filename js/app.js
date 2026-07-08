@@ -3,8 +3,8 @@
 const BOOK_LIST_PATH = 'books/books.json';
 const AUDIO_MAP_PATH = 'audio/audio-map.json';
 const MAX_CHOICES = 5;
-const SENTENCE_PAUSE_MS = 500;
-const PARAGRAPH_PAUSE_MS = 1000;
+const SENTENCE_PAUSE_MS = 300;
+const PARAGRAPH_PAUSE_MS = 500;
 const NEXT_AFTER_ANSWER_MS = 240;
 const PREFERRED_FEMALE_VOICES = ['sunhi', 'yuna', '유나', 'sora', '소라', 'heami', 'google 한국'];
 const MALE_VOICE_NAMES = ['eddy', 'reed', 'rocko', 'grandpa', 'injoon', 'bongjin', 'hyunsu'];
@@ -269,46 +269,47 @@ function targetForBlank(paragraphId, targetId) {
 function renderStory() {
   els.storyPages.textContent = '';
   if (!state.book) return;
-  state.book.paragraphs.forEach((paragraph, paragraphIndex) => {
-    const row = document.createElement('article');
-    row.className = 'paragraph';
-    row.classList.toggle('active', paragraphIndex === state.activeParagraphIndex);
-    row.dataset.paragraphId = paragraph.id;
+  const paragraphIndex = Math.max(0, state.activeParagraphIndex);
+  const paragraph = state.book.paragraphs[paragraphIndex];
+  if (!paragraph) return;
 
-    const thumb = document.createElement('img');
-    thumb.src = paragraph.image;
-    thumb.alt = '';
-    row.appendChild(thumb);
+  const row = document.createElement('article');
+  row.className = 'paragraph active';
+  row.dataset.paragraphId = paragraph.id;
 
-    const textEl = document.createElement('p');
-    textEl.className = 'paragraph-text';
-    const targets = state.targetsByParagraph.get(paragraph.id) || [];
-    let cursor = 0;
-    targets.forEach((target) => {
-      if (target.start > cursor) {
-        textEl.appendChild(document.createTextNode(paragraph.text.slice(cursor, target.start)));
-      }
-      const blank = document.createElement('span');
-      blank.className = 'blank';
-      blank.dataset.targetId = target.id;
-      blank.dataset.word = target.word;
-      blank.setAttribute('aria-label', `${target.word} 빈칸`);
-      if (state.revealed.has(target.id)) {
-        blank.classList.add('filled');
-        blank.textContent = target.word;
-      }
-      if (state.currentTarget?.target.id === target.id) {
-        blank.classList.add('current');
-      }
-      textEl.appendChild(blank);
-      cursor = target.wordEnd;
-    });
-    if (cursor < paragraph.text.length) {
-      textEl.appendChild(document.createTextNode(paragraph.text.slice(cursor)));
+  const thumb = document.createElement('img');
+  thumb.src = paragraph.image;
+  thumb.alt = '';
+  row.appendChild(thumb);
+
+  const textEl = document.createElement('p');
+  textEl.className = 'paragraph-text';
+  const targets = state.targetsByParagraph.get(paragraph.id) || [];
+  let cursor = 0;
+  targets.forEach((target) => {
+    if (target.start > cursor) {
+      textEl.appendChild(document.createTextNode(paragraph.text.slice(cursor, target.start)));
     }
-    row.appendChild(textEl);
-    els.storyPages.appendChild(row);
+    const blank = document.createElement('span');
+    blank.className = 'blank';
+    blank.dataset.targetId = target.id;
+    blank.dataset.word = target.word;
+    blank.setAttribute('aria-label', `${target.word} 빈칸`);
+    if (state.revealed.has(target.id)) {
+      blank.classList.add('filled');
+      blank.textContent = target.word;
+    }
+    if (state.currentTarget?.target.id === target.id) {
+      blank.classList.add('current');
+    }
+    textEl.appendChild(blank);
+    cursor = target.wordEnd;
   });
+  if (cursor < paragraph.text.length) {
+    textEl.appendChild(document.createTextNode(paragraph.text.slice(cursor)));
+  }
+  row.appendChild(textEl);
+  els.storyPages.appendChild(row);
 }
 
 function buildChoices(answer) {

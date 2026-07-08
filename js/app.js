@@ -125,6 +125,19 @@ function findEojeolEnd(text, fromIndex) {
   return text.length;
 }
 
+function findWordOccurrences(text, word) {
+  const occurrences = [];
+  let cursor = 0;
+  while (cursor < text.length) {
+    const start = text.indexOf(word, cursor);
+    if (start < 0) break;
+    const wordEnd = start + word.length;
+    occurrences.push({ start, wordEnd });
+    cursor = wordEnd;
+  }
+  return occurrences;
+}
+
 function findSentenceEnd(text, fromIndex, limit) {
   for (let i = fromIndex; i < limit; i += 1) {
     if (isSentenceEnd(text[i])) {
@@ -140,8 +153,11 @@ function analyzeTargets(book) {
   const byParagraph = new Map();
   book.paragraphs.forEach((paragraph, paragraphIndex) => {
     const targets = [];
+    const usedWords = new Set();
     let cursor = 0;
     paragraph.quizWords.forEach((word, targetIndex) => {
+      if (usedWords.has(word)) return;
+      usedWords.add(word);
       const start = paragraph.text.indexOf(word, cursor);
       if (start < 0) {
         console.warn(`Missing quiz word "${word}" in paragraph ${paragraph.id}`);
@@ -149,6 +165,7 @@ function analyzeTargets(book) {
       }
       const wordEnd = start + word.length;
       const eojeolEnd = findEojeolEnd(paragraph.text, wordEnd);
+      const occurrences = findWordOccurrences(paragraph.text, word);
       const target = {
         id: `${paragraph.id}-${targetIndex}`,
         paragraphId: paragraph.id,
@@ -158,6 +175,7 @@ function analyzeTargets(book) {
         start,
         wordEnd,
         eojeolEnd,
+        occurrences,
       };
       targets.push(target);
       cursor = wordEnd;
@@ -261,9 +279,10 @@ function restartBook() {
   if (state.book) startBook(state.book);
 }
 
-function targetForBlank(paragraphId, targetId) {
-  const targets = state.targetsByParagraph.get(paragraphId) || [];
-  return targets.find((target) => target.id === targetId) || null;
+function blankSlotsForParagraph(targets) {
+  return targets
+    .flatMap((target) => target.occurrences.map((occurrence) => ({ ...occurrence, target })))
+    .sort((a, b) => a.start - b.start || b.wordEnd - a.wordEnd);
 }
 
 function renderStory() {
@@ -280,16 +299,19 @@ function renderStory() {
   const textEl = document.createElement('p');
   textEl.className = 'paragraph-text';
   const targets = state.targetsByParagraph.get(paragraph.id) || [];
+  const blankSlots = blankSlotsForParagraph(targets);
   let cursor = 0;
-  targets.forEach((target) => {
-    if (target.start > cursor) {
-      textEl.appendChild(document.createTextNode(paragraph.text.slice(cursor, target.start)));
+  blankSlots.forEach(({ target, start, wordEnd }) => {
+    if (start < cursor) return;
+    if (start > cursor) {
+      textEl.appendChild(document.createTextNode(paragraph.text.slice(cursor, start)));
     }
     const blank = document.createElement('span');
     blank.className = 'blank';
     blank.dataset.targetId = target.id;
     blank.dataset.word = target.word;
     blank.setAttribute('aria-label', `${target.word} 빈칸`);
+    blank.addEventListener('click', () => speakText(target.word));
     if (state.revealed.has(target.id)) {
       blank.classList.add('filled');
       blank.textContent = target.word;
@@ -298,7 +320,7 @@ function renderStory() {
       blank.classList.add('current');
     }
     textEl.appendChild(blank);
-    cursor = target.wordEnd;
+    cursor = wordEnd;
   });
   if (cursor < paragraph.text.length) {
     textEl.appendChild(document.createTextNode(paragraph.text.slice(cursor)));

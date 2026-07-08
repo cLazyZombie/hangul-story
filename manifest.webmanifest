@@ -1,0 +1,24 @@
+{
+  "name": "한글 이야기책",
+  "short_name": "한글책",
+  "description": "동물 이름을 찾아 넣으며 읽는 그림 동화책",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#fff3d8",
+  "theme_color": "#fff3d8",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

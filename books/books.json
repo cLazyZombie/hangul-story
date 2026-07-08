@@ -1,0 +1,10 @@
+[
+  {
+    "id": "bremen",
+    "title": "브레멘 음악대",
+    "subtitle": "네 동물이 함께 찾은 따뜻한 집",
+    "cover": "images/bremen/cover.png",
+    "path": "books/bremen.json",
+    "targetWords": ["당나귀", "개", "고양이", "수탉"]
+  }
+]

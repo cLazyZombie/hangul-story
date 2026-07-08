@@ -1,0 +1,52 @@
+{
+  "id": "bremen",
+  "title": "브레멘 음악대",
+  "subtitle": "네 동물이 함께 찾은 따뜻한 집",
+  "cover": "images/bremen/cover.png",
+  "targetWords": ["당나귀", "개", "고양이", "수탉"],
+  "distractorWords": ["말", "소", "염소", "양", "오리", "거위", "돼지", "쥐", "여우", "사자", "토끼", "곰"],
+  "paragraphs": [
+    {
+      "id": "donkey",
+      "image": "images/bremen/donkey.png",
+      "text": "먼 옛날, 당나귀가 농장을 떠나 노래를 부르며 브레멘으로 가고 있었어요.",
+      "quizWords": ["당나귀"]
+    },
+    {
+      "id": "dog",
+      "image": "images/bremen/dog.png",
+      "text": "길가에서 개가 꼬리를 흔들며 말했어요. “나도 함께 가고 싶어!” 당나귀와 개는 나란히 걸었어요.",
+      "quizWords": ["개"]
+    },
+    {
+      "id": "cat",
+      "image": "images/bremen/cat-rooster.png",
+      "text": "해가 기울 때, 고양이가 돌담 위에서 야옹 하고 인사했어요. 친구들은 고양이에게 손짓했지요.",
+      "quizWords": ["고양이"]
+    },
+    {
+      "id": "rooster",
+      "image": "images/bremen/cat-rooster.png",
+      "text": "마을 근처에서 수탉이 지붕 위에 올라 크게 꼬끼오 하고 울었어요. 친구들은 수탉도 함께 가자고 했어요.",
+      "quizWords": ["수탉"]
+    },
+    {
+      "id": "forest",
+      "image": "images/bremen/forest.png",
+      "text": "밤이 되자 당나귀, 개, 고양이, 수탉은 숲속에서 반짝이는 작은 집을 보았어요.",
+      "quizWords": ["당나귀", "개", "고양이", "수탉"]
+    },
+    {
+      "id": "window",
+      "image": "images/bremen/window.png",
+      "text": "네 친구는 창가에서 신나게 노래했어요. 놀란 나쁜 사람들은 멀리 달아났고, 집 안은 금세 조용해졌어요.",
+      "quizWords": []
+    },
+    {
+      "id": "home",
+      "image": "images/bremen/home.png",
+      "text": "그날부터 동물들은 따뜻한 보금자리에서 오래오래 함께 살았답니다.",
+      "quizWords": []
+    }
+  ]
+}

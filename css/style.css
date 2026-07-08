@@ -188,6 +188,7 @@ img {
 }
 
 .book-spread {
+  --spine-safe: clamp(34px, 5vw, 72px);
   width: min(100%, calc((100vh - 32px) * 16 / 9));
   max-height: 100%;
   aspect-ratio: 16 / 9;
@@ -215,14 +216,15 @@ img {
   grid-row: 2;
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
-  gap: 12px;
+  gap: 8px;
+  padding-right: var(--spine-safe);
 }
 
 .story-pages {
   display: flex;
   align-items: center;
   overflow: hidden;
-  padding: 4px 6px 4px 2px;
+  padding: 0 6px 0 2px;
 }
 
 .paragraph {
@@ -243,29 +245,37 @@ img {
   min-width: 0;
   margin: 0;
   font-size: clamp(1.75rem, 4.2vw, 2.4rem);
-  line-height: 1.36;
+  line-height: 1.28;
   word-break: keep-all;
   overflow-wrap: break-word;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.65);
 }
 
 .blank {
-  display: inline-grid;
-  place-items: center;
-  min-width: 4.4em;
-  height: 1.5em;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.4em;
+  height: 1.35em;
   margin: 0 0.08em;
   padding: 0 0.35em;
   border-radius: 8px;
   border: 3px dashed rgba(75, 63, 57, 0.35);
   background: rgba(255, 255, 255, 0.64);
   color: transparent;
-  vertical-align: -0.15em;
+  line-height: 1;
+  vertical-align: middle;
+  break-inside: avoid;
 }
 
 .blank::before {
   content: '';
-  width: 70%;
+  position: absolute;
+  left: 15%;
+  right: 15%;
+  top: 50%;
+  transform: translateY(-50%);
   border-bottom: 4px solid rgba(75, 63, 57, 0.22);
 }
 
@@ -287,12 +297,12 @@ img {
 }
 
 .choice-tray {
-  min-height: clamp(76px, 13vh, 120px);
+  min-height: 116px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
   padding: 0;
   background: transparent;
 }
@@ -303,15 +313,15 @@ img {
 }
 
 .choice-tile {
-  min-width: clamp(82px, 15vw, 124px);
-  min-height: clamp(54px, 9vw, 70px);
+  min-width: clamp(74px, 7vw, 90px);
+  min-height: clamp(48px, 6.5vw, 54px);
   display: grid;
   place-items: center;
   padding: 0 16px;
   border-radius: 8px;
   background: var(--sky);
   color: #fff;
-  font-size: clamp(1.35rem, 3.4vw, 2rem);
+  font-size: clamp(1.12rem, 2.2vw, 1.35rem);
   text-shadow: 0 2px 0 rgba(75, 63, 57, 0.2);
   box-shadow: 0 6px 0 rgba(58, 110, 142, 0.28);
   touch-action: none;
@@ -445,6 +455,7 @@ img {
     padding: 16px 14px;
     background-image: url('../images/ui/book-pages-layered-portrait.webp');
     background-size: cover;
+    --spine-safe: 0px;
   }
 
   .reader-top {
@@ -460,6 +471,7 @@ img {
     grid-column: 1;
     grid-row: 3;
     gap: 8px;
+    padding-right: 0;
   }
 
   .story-pages {
@@ -471,19 +483,22 @@ img {
   }
 
   .paragraph-text {
+    column-count: 2;
+    column-gap: clamp(20px, 7vw, 30px);
+    column-fill: balance;
     font-size: clamp(1.24rem, 5.1vw, 1.52rem);
     line-height: 1.24;
   }
 
   .blank {
-    min-width: 3.6em;
+    width: 3.85em;
     height: 1.35em;
     padding: 0 0.25em;
     border-width: 2px;
   }
 
   .choice-tray {
-    min-height: 76px;
+    min-height: 104px;
     gap: 8px;
     padding: 0;
   }

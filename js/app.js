@@ -312,9 +312,9 @@ function renderStory() {
     blank.dataset.word = target.word;
     blank.setAttribute('aria-label', `${target.word} 빈칸`);
     blank.addEventListener('click', () => speakText(target.word));
+    blank.textContent = target.word;
     if (state.revealed.has(target.id)) {
       blank.classList.add('filled');
-      blank.textContent = target.word;
     }
     if (state.currentTarget?.target.id === target.id) {
       blank.classList.add('current');
